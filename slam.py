@@ -1,14 +1,26 @@
-import robot.toySimulator as robot
-import features.simuRLF as features
+import robot.simu2Dlocomotion as robot
+import device.simuRLF as device
+import features.allpass as features
 import landmarks.allpass as landmarks
 import kalman.ExtendedKalmanFilter as kalman
 
-kf = kalman.UnscentedKalmanFilter()
+import field.visualizer as visualizer
+import field.simField as field
+
+fieldObj = field.Field("field/test01.fld")
+
+robotObj = robot.Robot(robot.RANDOM)
+deviceObj = device.Device(fieldObj, robotObj)
+kf = kalman.Kalman()
 
 while 1:
-    m = robot.move()
-    f = features.getFeature()
+    pos = robotObj.move(fieldObj)
+    raw = deviceObj.getRawData()
+    f = features.getFeatures(raw)
     l = landmarks.getLandmarks(f)
-    kf.addLandmark(l, m)
+    kf.addLandmark(l, pos)
     kf.update()
     
+    visualizer.visualize(pos, f, l, kf, fieldObj)
+
+    print pos
