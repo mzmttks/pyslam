@@ -1,0 +1,9 @@
+
+kf = kalman.UnscentedKalmanFilter()
+
+while 1:
+    f = features.getFeature()
+    l = landmarks.getLandmarks(f)
+    kf.addLandmark(l)
+    kf.update()
+    

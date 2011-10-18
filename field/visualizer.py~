@@ -1,0 +1,10 @@
+import pylab
+pylab.ion()
+
+def visualize(pos, feature, landmarks, kalman, field):
+    pylab.imshow(field.data, interpolation="nearest")
+    pylab.draw()
+
+
+def mainloop():
+    pylab.show()

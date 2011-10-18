@@ -1,0 +1,12 @@
+import numpy
+
+class Device:
+    def __init__(self, field, robot):
+        self.field = field
+        self.robot = robot
+
+    def getRawData(self):
+        return numpy.array([1,2, 2, 1])
+
+if __name__ == "__main__":
+    pass
