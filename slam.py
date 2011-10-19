@@ -14,13 +14,13 @@ deviceObj = device.Device(fieldObj, robotObj)
 kf = kalman.Kalman()
 
 while 1:
-    pos = robotObj.move(fieldObj)
+    robotObj.move(fieldObj)
     raw = deviceObj.getRawData()
     f = features.getFeatures(raw)
     l = landmarks.getLandmarks(f)
-    kf.addLandmark(l, pos)
+    kf.addLandmark(l, robotObj.pos)
     kf.update()
     
-    visualizer.visualize(pos, f, l, kf, fieldObj)
+    visualizer.visualize(robotObj.pos, f, l, kf, fieldObj)
 
-    print pos
+    print robotObj.pos
